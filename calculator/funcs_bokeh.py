@@ -1,5 +1,5 @@
 import os
-import numpy as np 
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, confusion_matrix, precision_recall_curve
@@ -33,22 +33,22 @@ def pred_metric(y_prob,y_resp):
             sens.append(tp/(tp+fn))
         else:
             sens.append(1)
-            
+
         if((tn+fp)!=0):
             spec.append(tn/(tn+fp))
         else:
             spec.append(1)
-        
+
         if((tp+fp)!=0):
             prec.append(tp/(tp+fp))
         else:
             prec.append(1)
-        
+
         if((tn+fn)!=0):
             nprv.append(tn/(tn+fn))
         else:
             nprv.append(1)
-    
+
     return np.array(prec), np.array(sens), np.array(spec), np.array(nprv)
 
 
@@ -71,7 +71,7 @@ def gracia_curves(data):
     return fpr1, tpr1, prec1, rec1, spe1, npv1
 
 
-def figure_bokeh(titulo, thresholds, x_label, y_label,x, y, x_p, y_p, colors, legend_pos,
+def figure_bokeh(curva, thresholds, x_label, y_label,x, y, x_p, y_p, colors, legend_pos,
                 range_x = (0,1), range_y=(0,1)):
     patchx = []
     patchy_el = [0, 0 ,1, 1]
@@ -80,17 +80,17 @@ def figure_bokeh(titulo, thresholds, x_label, y_label,x, y, x_p, y_p, colors, le
     for i in range(1, len(thresholds), 1):
         patchx = patchx + [[thresholds[i-1], thresholds[i], thresholds[i], thresholds[i-1]]]
         patchy = patchy + [patchy_el]
-        
-    p = figure(plot_width=600, plot_height=400, title=titulo,
-               x_axis_label=x_label , y_axis_label = y_label, 
+
+    p = figure(plot_width=700, plot_height=550, title="YOUR POINT OVER THE " + curva + " CURVE",
+               x_axis_label=x_label , y_axis_label = y_label,
                x_range=range_x, y_range=range_y, toolbar_location=None, tools = "")
-    
+
     for i in range(len(patchx)):
         p.patch(patchx[i], patchy[i], fill_color = colors[i], alpha = alphas[i], line_width = 0)
-    
-    linea = p.line(x, y, line_width = 3, legend = "ERT MODEL ROC CURVE", name = 'ROC CURVE')
+
+    linea = p.line(x, y, line_width = 3, legend = "ERT MODEL "+ curva + " CURVE", name = 'ROC CURVE')
     punto = p.x(x_p, y_p, size = 10, line_width = 6,  alpha = 1, color = 'black',
-                legend = 'Your point: ' + x_label + ' =  %0.2f; ' % x_p + y_label + ' = %0.2f' % y_p,             
+                legend = 'Your point: ' + x_label + ' =  %0.2f; ' % x_p + y_label + ' = %0.2f' % y_p,
                 name = 'YOUR POINT')
     p.add_tools(HoverTool(tooltips=[(x_label, '@x'), (y_label, '@y')], renderers = [linea], mode='vline'))
 
@@ -98,4 +98,5 @@ def figure_bokeh(titulo, thresholds, x_label, y_label,x, y, x_p, y_p, colors, le
     p.legend.border_line_width = 3
     p.legend.border_line_color = "navy"
     p.legend.border_line_alpha = 0.5
-    show(p)   
+
+    return p
