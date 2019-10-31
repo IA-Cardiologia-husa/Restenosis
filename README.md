@@ -13,3 +13,6 @@ Requirements
 - Scipy >= 1.1.0
 - Tkinter >= 8.6
 - Matplolib >= 2.2.2
+- Bokeh >= 1.0.0
+- phantomjs >= 2.1.1
+- selenium >= 3.141.0
