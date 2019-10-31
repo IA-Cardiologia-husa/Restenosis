@@ -60,7 +60,6 @@ def point_scores(data, proba):
     REC = TP / (TP + FN)
     SPE = TN / (TN + FP)
     NPV = TN / (TN + FN)
-    print(cm)
     return PREC, REC, SPE, NPV
 
 
