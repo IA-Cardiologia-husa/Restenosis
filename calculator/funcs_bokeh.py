@@ -80,17 +80,17 @@ def figure_bokeh(curva, thresholds, x_label, y_label,x, y, x_p, y_p, colors, leg
         patchx = patchx + [[thresholds[i-1], thresholds[i], thresholds[i], thresholds[i-1]]]
         patchy = patchy + [patchy_el]
 
-    p = figure(plot_width=700, plot_height=550, title="YOUR POINT OVER THE " + curva + " CURVE",
+    p = figure(plot_width=700, plot_height=550, title="PUNTO SOBRE LA CURVA " + curva,
                x_axis_label=x_label , y_axis_label = y_label,
                x_range=range_x, y_range=range_y, toolbar_location=None, tools = "")
 
     for i in range(len(patchx)):
         p.patch(patchx[i], patchy[i], fill_color = colors[i], alpha = alphas[i], line_width = 0)
 
-    linea = p.line(x, y, line_width = 3, legend = "ERT MODEL "+ curva + " CURVE", name = 'ROC CURVE')
+    linea = p.line(x, y, line_width = 3, legend = "MODELO ERT", name = 'CURVA')
     punto = p.x(x_p, y_p, size = 10, line_width = 6,  alpha = 1, color = 'black',
-                legend = 'Your point: ' + x_label + ' =  %0.2f; ' % x_p + y_label + ' = %0.2f' % y_p,
-                name = 'YOUR POINT')
+                legend = 'PUNTO: ' + x_label + ' =  %0.2f; ' % x_p + y_label + ' = %0.2f' % y_p,
+                name = 'PUNTO')
     p.add_tools(HoverTool(tooltips=[(x_label, '@x'), (y_label, '@y')], renderers = [linea], mode='vline'))
 
     p.legend.location = legend_pos
