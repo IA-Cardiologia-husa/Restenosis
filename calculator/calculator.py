@@ -100,12 +100,19 @@ class MyWindow:
         thresholds_fpr = [0, 0.018, 0.14, 0.466,1]
         thresholds_npv = [0, 0.53, 0.86, 0.98,1]
         colors = ["red", "orange", "yellow", "green"]
-        fig1 = figure_bokeh('ROC', thresholds=thresholds_fpr, x_label = 'FPR', y_label = 'TPR',
-             x = fpr1, y = tpr1, x_p = 1-SPE, y_p = REC, colors = colors, legend_pos = 'bottom_right')
-        fig2 = figure_bokeh('P-R', thresholds=thresholds_pr, x_label = 'REC', y_label = 'PREC',
-             x = rec1, y = prec1, x_p = REC, y_p = PREC, colors = colors, legend_pos = 'top_right')
-        fig3 = figure_bokeh('NPV-SPE', thresholds=thresholds_npv, x_label = 'SPE', y_label = 'NPV',
-             x = spe1, y = npv1, x_p = SPE, y_p = NPV, colors = colors[::-1], legend_pos = 'bottom_right', range_y = (0.85,1))
+        fig1 = figure_bokeh('ROC', thresholds=thresholds_fpr,
+                            x_label = '1 - Especificidad', y_label = 'Sensitividad',
+                            x = fpr1, y = tpr1, x_p = 1-SPE, y_p = REC, colors = colors, legend_pos = 'bottom_right')
+        fig2 = figure_bokeh('P-R', thresholds=thresholds_pr, x_label = 'Sensitividad',
+                            y_label = 'Exhaustividad', x = rec1, y = prec1,
+                            x_p = REC, y_p = PREC, colors = colors,
+                            legend_pos = 'top_right')
+        fig3 = figure_bokeh('NPV-SPE', thresholds=thresholds_npv,
+                            x_label = 'Especificidad',
+                            y_label = 'Valor Predictivo Negativo',
+                            x = spe1, y = npv1, x_p = SPE, y_p = NPV,
+                            colors = colors[::-1], legend_pos = 'bottom_right',
+                            range_y = (0.85,1))
         export_png(fig1, filename="fig1.png")
         export_png(fig2, filename="fig2.png")
         export_png(fig3, filename="fig3.png")
@@ -151,7 +158,7 @@ class MyWindow:
         self.resr.insert(END, str(result))
 window=Tk()
 mywin=MyWindow(window)
-window.title('Calculadora riesgo restenosis tras PCI')
+window.title('Calculadora riesgo restenosis tras ICP')
 window.geometry("1300x650+10+10")
 
 load1 = Image.open("USAL2.jpg")
