@@ -80,7 +80,7 @@ def figure_bokeh(curva, thresholds, x_label, y_label,x, y, x_p, y_p, colors, leg
         patchx = patchx + [[thresholds[i-1], thresholds[i], thresholds[i], thresholds[i-1]]]
         patchy = patchy + [patchy_el]
 
-    p = figure(plot_width=plot_width, plot_height=plot_height,
+    p = figure(plot_width=plot_width, plot_height=plot_height, border_fill_alpha = 0,
                title="POINT OVER THE " + curva + " CURVE",
                x_axis_label=x_label , y_axis_label = y_label,
                x_range=range_x, y_range=range_y, toolbar_location=None, tools = "")
@@ -88,14 +88,15 @@ def figure_bokeh(curva, thresholds, x_label, y_label,x, y, x_p, y_p, colors, leg
     for i in range(len(patchx)):
         p.patch(patchx[i], patchy[i], fill_color = colors[i], alpha = alphas[i], line_width = 0)
 
-    linea = p.line(x, y, line_width = 3, legend = "ERT MODEL", name = 'CURVE')
-    punto = p.x(x_p, y_p, size = 10, line_width = 6,  alpha = 1, color = 'black',
-                legend = 'POINT: ' + x_label + ' =  %0.2f; ' % x_p + y_label + ' = %0.2f' % y_p,
+    linea = p.line(x, y, line_width = 1.5, legend = "ERT MODEL", name = 'CURVE')
+    punto = p.x(x_p, y_p, size = 7.5, line_width = 3,  alpha = 1, color = 'black',
+                legend = 'YOUR POINT',
                 name = 'POINT')
     p.add_tools(HoverTool(tooltips=[(x_label, '@x'), (y_label, '@y')], renderers = [linea], mode='vline'))
 
     p.legend.location = legend_pos
-    p.legend.border_line_width = 3
+    p.legend.label_text_font_size = '10pt'
+    p.legend.border_line_width = 1.5
     p.legend.border_line_color = "navy"
     p.legend.border_line_alpha = 0.5
 
