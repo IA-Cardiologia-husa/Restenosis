@@ -71,7 +71,7 @@ def gracia_curves(data):
 
 
 def figure_bokeh(curva, thresholds, x_label, y_label,x, y, x_p, y_p, colors, legend_pos,
-                range_x = (0,1), range_y=(0,1)):
+                range_x = (0,1), range_y=(0,1), plot_width=700, plot_height=550):
     patchx = []
     patchy_el = [0, 0 ,1, 1]
     patchy =  []
@@ -80,7 +80,8 @@ def figure_bokeh(curva, thresholds, x_label, y_label,x, y, x_p, y_p, colors, leg
         patchx = patchx + [[thresholds[i-1], thresholds[i], thresholds[i], thresholds[i-1]]]
         patchy = patchy + [patchy_el]
 
-    p = figure(plot_width=700, plot_height=550, title="POINT OVER THE " + curva + " CURVE",
+    p = figure(plot_width=plot_width, plot_height=plot_height,
+               title="POINT OVER THE " + curva + " CURVE",
                x_axis_label=x_label , y_axis_label = y_label,
                x_range=range_x, y_range=range_y, toolbar_location=None, tools = "")
 
